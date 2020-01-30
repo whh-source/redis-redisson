@@ -2,6 +2,7 @@ package com.whh.redisredisson;
 
 import com.whh.redisredisson.config.RedissonConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.*;
 import org.redisson.api.listener.MessageListener;
@@ -144,5 +145,22 @@ class RedisRedissonApplicationTests {
         }finally {
             rLock.unlock();
         }
+    }
+
+
+    @Test
+    void remote(){
+
+	    //远程调用
+	    RRemoteService remoteService1 = redissonClient.getRemoteService();
+
+	    RemoteImpl remote = new RemoteImpl();
+        remoteService1.register(RemoteInterface.class, remote, 10);
+
+
+	    RRemoteService remoteService = redissonClient.getRemoteService();
+	    RemoteInvocationOptions options = RemoteInvocationOptions.defaults();
+	    RemoteInterface remoteInterface = remoteService.get(RemoteInterface.class, options);
+	    remoteInterface.hell();
     }
 }
