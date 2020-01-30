@@ -1,5 +1,4 @@
 
-### 单机与哨兵模式的配置参考：https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
 clusterServersConfig:
   idleConnectionTimeout: 10000
   pingTimeout: 1000

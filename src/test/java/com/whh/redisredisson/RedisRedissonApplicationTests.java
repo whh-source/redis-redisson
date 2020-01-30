@@ -131,6 +131,18 @@ class RedisRedissonApplicationTests {
         value = map.get("321");
         log.info("value: {}", value);
         map.destroy();
+    }
 
+    @Test
+    void lockTest(){
+	    RLock rLock = redissonClient.getLock("testLock");
+	    rLock.lock(100, TimeUnit.SECONDS);
+
+        try{
+            //TODO 原子操作代码块
+            log.info("this is source");
+        }finally {
+            rLock.unlock();
+        }
     }
 }
